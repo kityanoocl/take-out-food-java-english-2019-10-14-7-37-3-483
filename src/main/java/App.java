@@ -50,14 +50,14 @@ public class App {
                 if (total >= 30)
                 {
                     saved = 6;
-                    promotion = "Promotion used:\n" +
-                            "Deduct 6 yuan when the order reaches 30 yuan，";
+                    promotion = "Promotion used:\n" + sp.getDisplayName() +
+                            "，";
                 }
             }
             else
             {
-                String t = "Promotion used:\n" +
-                        "Half price for certain dishes (";
+                String t = "Promotion used:\n" + sp.getDisplayName()
+                        + " (";
                 double ts = 0;
                 for (String s : sp.getRelatedItems())
                 {
@@ -65,13 +65,16 @@ public class App {
                     {
                         if (i.getId().equals(s))
                         {
-                            t += i.getName() + "，";
+                            if (t.charAt(t.length() - 1) != '(')
+                            {
+                                t += ", ";
+                            }
+                            t += i.getName();
                             ts += purchase.get(i) * i.getPrice() / 2;
                         }
                     }
                 }
-                t = t.substring(0, t.length() - 3);
-                t += ")，";
+                t += "), ";
                 if (saved < ts)
                 {
                     promotion = t;
